@@ -5,8 +5,10 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 project(Collage)
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)
-include(Buildyard)
+set(OUTPUT_INCLUDE_DIR ${CMAKE_BINARY_DIR}/include)
+
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/CMake)
+#include(Buildyard)
 if(BUILDYARD_STOP)
   return()
 endif()
@@ -22,14 +24,15 @@ set(VERSION_PATCH "0")
 set(LAST_RELEASE 1.0.0)
 
 include(Common)
-include(GitTargets)
-include(Revision)
-include(UpdateFile)
+#include(GitTargets)
+#include(Revision)
+#include(UpdateFile)
+include(TestCPP11)
 
 include(FindPackages)
 set(COLLAGE_DEPENDENT_LIBRARIES Lunchbox)
 
-include_directories(BEFORE ${CMAKE_SOURCE_DIR})
+include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR} ${Lunchbox_INCLUDE_DIR} )
 
 if(LUNCHBOX_USE_OPENMP)
   find_package(OpenMP REQUIRED)
@@ -53,12 +56,13 @@ add_subdirectory(tests)
 add_subdirectory(co)
 add_subdirectory(doc)
 
-include(CPackConfig)
-include(DoxygenRule)
+#include(CPackConfig)
+#include(DoxygenRule)
 
 set(CTEST_CUSTOM_WARNING_EXCEPTION ${CTEST_CUSTOM_WARNING_EXCEPTION}
   # http://public.kitware.com/Bug/view.php?id=10179
   "ld: warning: duplicate dylib")
+#include(CPackConfig)
 include(CTest)
 
-include(PackageConfig)
+#include(PackageConfig)

@@ -2,11 +2,11 @@
 #
 # Change this number when adding tests to force a CMake run: 5
 
-include(InstallFiles)
+#include(InstallFiles)
 
-include_directories(${CMAKE_SOURCE_DIR}) # some tests need private headers
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}) # some tests need private headers
 add_definitions(-DBOOST_PROGRAM_OPTIONS_DYN_LINK)
 set(TEST_LIBRARIES Collage)
-include(CommonCTest)
+#include(CommonCTest)
 
 install_files(share/Collage/tests FILES ${TEST_FILES} COMPONENT examples)

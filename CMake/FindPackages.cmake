@@ -35,6 +35,7 @@ else()
   find_package(Boost 1.41.0  REQUIRED system regex date_time serialization program_options)
 endif()
 
+if (NOT TARGET Lunchbox)
 if(PKG_CONFIG_EXECUTABLE)
   find_package(Lunchbox 1.9.0)
   if((NOT Lunchbox_FOUND) AND (NOT LUNCHBOX_FOUND))
@@ -46,7 +47,7 @@ if(PKG_CONFIG_EXECUTABLE)
 else()
   find_package(Lunchbox 1.9.0  REQUIRED)
 endif()
-
+endif()
 
 if(EXISTS ${CMAKE_SOURCE_DIR}/CMake/FindPackagesPost.cmake)
   include(${CMAKE_SOURCE_DIR}/CMake/FindPackagesPost.cmake)

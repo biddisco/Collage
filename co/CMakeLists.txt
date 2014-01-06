@@ -38,9 +38,17 @@ source_group(\\ FILES CMakeLists.txt)
 source_group(collage FILES ${CO_PUBLIC_HEADERS} ${CO_HEADERS} ${CO_SOURCES} )
 
 add_library(Collage SHARED ${CO_PUBLIC_HEADERS} ${CO_HEADERS} ${CO_SOURCES})
-target_link_libraries(Collage ${CO_ADD_LINKLIB})
+target_link_libraries(Collage ${CO_ADD_LINKLIB} Lunchbox)
 set_target_properties(Collage
   PROPERTIES VERSION ${VERSION} SOVERSION ${VERSION_ABI})
+
+if(APPLE)
+  foreach(arch ${PROFILE_SUPPORTED_ARCH})
+    add_compiler_rt_static_runtime(clang_rt.profile-${arch} ${arch}
+      SOURCES ${PROFILE_SOURCES}
+      CFLAGS --sysroot=${COMPILER_RT_DARWIN_SDK_SYSROOT})
+  endforeach()
+endif()
 
 install(FILES ${CO_PUBLIC_HEADERS} DESTINATION include/co COMPONENT dev)
 

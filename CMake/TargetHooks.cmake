@@ -1,5 +1,7 @@
 # hooks to gather targets in global properties ALL_DEP_TARGETS and
 # ALL_LIB_TARGETS for future processing
+return()
+message("These macros are bad")
 
 include(CMakeParseArguments)
 set(ALL_DEP_TARGETS "")
